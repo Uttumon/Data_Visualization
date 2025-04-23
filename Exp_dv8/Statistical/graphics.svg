@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300">
+  <!-- Bar chart example -->
+  <rect x="50" y="50" width="40" height="200" fill="blue" />
+  <rect x="100" y="100" width="40" height="150" fill="green" />
+  <rect x="150" y="150" width="40" height="100" fill="red" />
+
+  <!-- Pie chart example -->
+  <circle cx="300" cy="150" r="100" fill="yellow" />
+  <path d="M300,150 L300,50 A100,100 0 0,1 400,150 Z" fill="orange" />
+  <path d="M300,150 L400,150 A100,100 0 0,1 300,250 Z" fill="purple" />
+</svg>

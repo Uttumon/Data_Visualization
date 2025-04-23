@@ -1,0 +1,17 @@
+svg {
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  rect {
+    stroke: #000;
+    stroke-width: 1;
+  }
+  
+  circle,
+  path {
+    stroke: #000;
+    stroke-width: 1;
+  }
+  

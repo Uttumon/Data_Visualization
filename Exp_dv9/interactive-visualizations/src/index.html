@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps & Charts</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDFGhxWbI7gIkHv-k71v5ufhD5xJcInHE"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4c6baf;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        h2 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        #visualizations {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px auto;
+            padding: 0 10px;
+        }
+
+        #map, #chart, #piechart {
+            flex: 1 1 calc(50% - 20px); /* Adjust width for compact layout */
+            max-width: 500px;
+            height: 400px; /* Reduced height */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #map, #chart, #piechart {
+                flex: 1 1 100%; /* Full width on smaller screens */
+                height: 250px; /* Further reduced height */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Interactive Google Maps & Charts</h1>
+    </header>
+
+    <h2>Explore Data Visually</h2>
+    
+    <div id="visualizations">
+        <div id="map"></div>
+        <div id="chart"></div>
+        <div id="piechart"></div>
+    </div>
+
+    <footer>
+        &copy; 2025 Interactive Visualizations. All rights reserved.
+    </footer>
+
+    <script>
+        // Updated data: Cities in India with Latitude, Longitude, and Value
+        const data = [
+            { name: "Mumbai", lat: 19.0760, lng: 72.8777, value: 150 },
+            { name: "Delhi", lat: 28.7041, lng: 77.1025, value: 200 },
+            { name: "Bangalore", lat: 12.9716, lng: 77.5946, value: 180 },
+            { name: "Chennai", lat: 13.0827, lng: 80.2707, value: 120 },
+            { name: "Kolkata", lat: 22.5726, lng: 88.3639, value: 140 },
+        ];
+        
+        // Initialize Google Map
+        function initMap() {
+            const center = { lat: data[0].lat, lng: data[0].lng };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 5,
+                center: center,
+            });
+    
+            data.forEach(location => {
+                new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.name
+                });
+            });
+        }
+    
+        // Load Google Chart
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawCharts);
+    
+        function drawCharts() {
+            drawColumnChart();
+            drawPieChart();
+        }
+    
+        function drawColumnChart() {
+            const chartData = [["City", "Value"]];
+            data.forEach(location => chartData.push([location.name, location.value]));
+    
+            const options = {
+                title: "City Data Visualization (India)",
+                width: "100%",
+                height: 400,
+                colors: ['#4c6baf'],
+                chartArea: { width: '80%', height: '70%' },
+                hAxis: { title: 'City' },
+                vAxis: { title: 'Value' }
+            };
+            const chart = new google.visualization.ColumnChart(document.getElementById("chart"));
+            chart.draw(google.visualization.arrayToDataTable(chartData), options);
+        }
+    
+        function drawPieChart() {
+            const pieData = [["City", "Value"]];
+            data.forEach(location => pieData.push([location.name, location.value]));
+    
+            const options = {
+                title: "City Data Distribution (India)",
+                width: "100%",
+                height: 400,
+                colors: ['#4c6baf', '#6ba4af', '#af4c6b', '#af6b4c', '#4caf6b'],
+                chartArea: { width: '80%', height: '70%' },
+                is3D: true
+            };
+            const pieChart = new google.visualization.PieChart(document.getElementById("piechart"));
+            pieChart.draw(google.visualization.arrayToDataTable(pieData), options);
+        }
+    
+        // Load map when page loads
+        window.onload = initMap;
+    </script>
+</body>
+</html>

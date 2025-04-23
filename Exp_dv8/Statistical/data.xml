@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statistics>
+  <data>
+    <item>
+      <category>A</category>
+      <value>30</value>
+    </item>
+    <item>
+      <category>B</category>
+      <value>50</value>
+    </item>
+    <item>
+      <category>C</category>
+      <value>20</value>
+    </item>
+  </data>
+</statistics>
